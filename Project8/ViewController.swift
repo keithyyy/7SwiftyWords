@@ -83,6 +83,9 @@ class ViewController: UIViewController {
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        buttonsView.layer.borderWidth = 1
+        buttonsView.layer.cornerRadius = 10
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         view.addSubview(buttonsView)
         
         NSLayoutConstraint.activate([
@@ -186,12 +189,21 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             
+            
+            
+            
             score += 1
             if score % 7 == 0 {
                 let ac = UIAlertController(title: "Well done!", message: "Ready for the next level?", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                 present(ac, animated: true)
             }
+        } else {
+            let ac = UIAlertController(title: "Wrong guess", message: "That wasn't it!", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default))
+            present(ac, animated: true)
+            
+            currentAnswer.text = ""
         }
         
     }
@@ -260,3 +272,9 @@ class ViewController: UIViewController {
 
 }
 
+
+// CHALLENGE
+// 1. Draw a thing gray line around the buttons view to make a separator [X]
+// 2. If user enters an incorrect guess, prompt an alert saying no. [X]
+// 3. Make the game deduct points if the player makes an incorrect guess. [ ]
+//      - think about levelUp func for this cuz if user has lost some points it can't divide 7 remainder
